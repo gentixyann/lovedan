@@ -45,7 +45,7 @@ class MyHomePage extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.pink[50],
       ),
-      home: TabsScreen(),
+      home: TopScreen(),
     );
   }
 }
