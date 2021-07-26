@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../config/size_config.dart';
 
 class QuestionCard extends StatelessWidget {
   void _selectQuestion() {
@@ -7,12 +8,13 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return InkWell(
       onTap: () => _selectQuestion(),
       // borderRadius: BorderRadius.circular(10),
       child: SizedBox(
         width: double.infinity,
-        height: 300,
+        height: SizeConfig.blockSizeVertical * 30,
         child: Card(
           elevation: 15,
           shape:
