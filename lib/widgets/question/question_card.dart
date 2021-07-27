@@ -20,9 +20,15 @@ class QuestionCard extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                child: Text('Title'),
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'どうして異性と付き合ったら行為をしなければいけないんですか？',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
               Container(
                 child: Text('text'),
