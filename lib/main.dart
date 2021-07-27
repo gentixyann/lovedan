@@ -47,13 +47,13 @@ class MyHomePage extends StatelessWidget {
         accentColor: Colors.yellow[100],
         textTheme: TextTheme(
           headline1: TextStyle(
-              fontSize: 72.0,
+              fontSize: 62.0,
               fontWeight: FontWeight.bold,
               fontFamily: 'Yomogi-Regular'),
           headline6: TextStyle(
               fontSize: 21.0,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Yomogi-Regular'),
+              fontFamily: 'KiwiMaru-Regular'),
           bodyText1: TextStyle(fontSize: 14.0),
           bodyText2: TextStyle(fontSize: 14.0),
         ),

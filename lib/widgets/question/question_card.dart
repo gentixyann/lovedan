@@ -24,14 +24,26 @@ class QuestionCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 20,
+                ),
                 child: Text(
                   'どうして異性と付き合ったら行為をしなければいけないんですか？',
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
               Container(
-                child: Text('text'),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.timer,
+                      size: 30,
+                      color: Colors.grey,
+                    ),
+                    Text('21-07-27')
+                  ],
+                ),
               )
             ],
           ),
