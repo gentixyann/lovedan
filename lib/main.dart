@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './screens/top_screen.dart';
 import './screens/tabs_screen.dart';
+import './screens/my_questions/my_questions_screen.dart';
+import './screens/post_question/post_question_screen.dart';
+import './screens/settings/settings_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +46,7 @@ class MyHomePage extends StatelessWidget {
     return MaterialApp(
       title: 'LoveDan',
       theme: ThemeData(
-        primaryColor: Colors.pink[50],
+        primaryColor: Colors.pink[100],
         accentColor: Colors.yellow[100],
         textTheme: TextTheme(
           headline1: TextStyle(
@@ -58,7 +61,13 @@ class MyHomePage extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 14.0),
         ),
       ),
-      home: TopScreen(),
+      home: TabsScreen(),
+      routes: {
+        TopScreen.routeName: (ctx) => TopScreen(),
+        MyQuestionsScreen.routeName: (ctx) => MyQuestionsScreen(),
+        PostQuestionScreen.routeName: (ctx) => PostQuestionScreen(),
+        SettingsScreen.routeName: (ctx) => SettingsScreen(),
+      },
     );
   }
 }
