@@ -33,8 +33,12 @@ class QuestionCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
               Container(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
                       Icons.timer,

@@ -14,6 +14,14 @@ class TopScreen extends StatelessWidget {
             horizontal: 20, vertical: SizeConfig.blockSizeVertical * 5),
         child: QuestionCard(),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          print('pressed');
+        },
+        label: const Text('質問を投稿する'),
+        icon: const Icon(Icons.question_answer),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
