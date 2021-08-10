@@ -23,7 +23,7 @@ class TopScreen extends StatelessWidget {
         onPressed: () {
           _selectedQuestion(context);
         },
-        label: const Text('質問を投稿する'),
+        label: const Text('悩みを投稿する'),
         icon: const Icon(Icons.question_answer),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
