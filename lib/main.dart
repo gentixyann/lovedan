@@ -49,15 +49,18 @@ class MyHomePage extends StatelessWidget {
         primaryColor: HexColor('F8EEF4'),
         accentColor: Colors.yellow[100],
         textTheme: TextTheme(
-          headline1: TextStyle(
-              fontSize: 62.0,
+          headline5: TextStyle(
+              fontSize: 24.0,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Yomogi-Regular'),
+              fontFamily: 'KiwiMaru-Regular'),
           headline6: TextStyle(
               fontSize: 21.0,
               fontWeight: FontWeight.bold,
               fontFamily: 'KiwiMaru-Regular'),
-          bodyText1: TextStyle(fontSize: 14.0),
+          bodyText1: TextStyle(
+            fontSize: 16.0,
+            fontFamily: 'KiwiMaru-Regular',
+          ),
           bodyText2: TextStyle(fontSize: 14.0),
         ),
       ),

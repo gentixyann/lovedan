@@ -43,7 +43,10 @@ class PostQuestionScreen extends StatelessWidget {
                   SizedBox(
                     height: 10 * SizeConfig.blockSizeVertical,
                   ),
-                  Text('内容'),
+                  Text(
+                    '内容',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                   TextFormField(
                     controller: descEditingController,
                     textInputAction: TextInputAction.newline,
