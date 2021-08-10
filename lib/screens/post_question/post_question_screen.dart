@@ -6,6 +6,9 @@ class PostQuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('投稿する'),
+      ),
       body: Center(
         child: Text('PostQuestionScreen'),
       ),

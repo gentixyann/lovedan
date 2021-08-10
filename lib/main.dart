@@ -46,7 +46,7 @@ class MyHomePage extends StatelessWidget {
     return MaterialApp(
       title: 'LoveDan',
       theme: ThemeData(
-        primaryColor: Colors.pink[100],
+        primaryColor: HexColor('F8EEF4'),
         accentColor: Colors.yellow[100],
         textTheme: TextTheme(
           headline1: TextStyle(
@@ -70,4 +70,16 @@ class MyHomePage extends StatelessWidget {
       },
     );
   }
+}
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+    if (hexColor.length == 6) {
+      hexColor = 'FF' + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
