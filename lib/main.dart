@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import './config/hex_color.dart';
 import './screens/top_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/my_questions/my_questions_screen.dart';
@@ -74,16 +75,4 @@ class MyHomePage extends StatelessWidget {
       },
     );
   }
-}
-
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll('#', '');
-    if (hexColor.length == 6) {
-      hexColor = 'FF' + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
