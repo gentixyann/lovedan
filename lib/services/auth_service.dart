@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum Status { uninitialized, authenticated, authenticating, unauthenticated }
 
@@ -20,7 +21,13 @@ class AuthService with ChangeNotifier {
     try {
       _status = Status.authenticating;
       notifyListeners();
-      await _auth.signInAnonymously();
+      await _auth.signInAnonymously().then((UserCredential userCredential) {
+        _user = userCredential.user;
+        FirebaseFirestore.instance.collection('users').doc(_user.uid).set({
+          'uid': _user.uid,
+          'createdAt': Timestamp.now(),
+        });
+      });
       _status = Status.authenticated;
       notifyListeners();
     } catch (e) {
@@ -40,7 +47,7 @@ class AuthService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _signOut() async {
+  Future<void> signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
     } catch (e) {
