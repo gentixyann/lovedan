@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../screens/my_questions/my_questions_screen.dart';
 import '../screens/top_screen.dart';
 import '../screens/settings/settings_screen.dart';
+import '../services/auth_service.dart';
+import '../services/question_service.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -39,6 +42,9 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    final questionService = Provider.of<QuestionService>(context);
+    questionService.uid = authService.user.uid;
     return Scaffold(
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(

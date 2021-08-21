@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../config/size_config.dart';
+import '../../services/question_service.dart';
 
 class PostQuestionScreen extends StatelessWidget {
   static const routeName = '/postQuestion';
@@ -9,13 +11,14 @@ class PostQuestionScreen extends StatelessWidget {
   final descEditingController = TextEditingController();
 
   void _postQuestion() {
-    print('post');
+    print(titleEditingController.text);
+    print(descEditingController.text);
   }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-
+    final questionService = Provider.of<QuestionService>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('悩みを投稿'),
@@ -65,7 +68,12 @@ class PostQuestionScreen extends StatelessWidget {
                   height: 5 * SizeConfig.blockSizeVertical,
                 ),
                 ElevatedButton(
-                  onPressed: _postQuestion,
+                  onPressed: () {
+                    questionService.postQuestion(
+                      titleEditingController.text,
+                      descEditingController.text,
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: const Text(

@@ -10,6 +10,7 @@ import './screens/post_question/post_question_screen.dart';
 import './screens/settings/settings_screen.dart';
 import './screens/introduction/introduction_screen.dart';
 import './services/auth_service.dart';
+import './services/question_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +53,9 @@ class MyHomePage extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthService.instance(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => QuestionService(),
         )
       ],
       child: MaterialApp(
