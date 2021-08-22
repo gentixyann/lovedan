@@ -79,23 +79,7 @@ class MyHomePage extends StatelessWidget {
             bodyText2: TextStyle(fontSize: 14.0),
           ),
         ),
-        home: StreamBuilder<User>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (ctx, userSnapshot) {
-              if (userSnapshot.connectionState == ConnectionState.active) {
-                User user = userSnapshot.data;
-                if (user == null) {
-                  return IntroductionScreen();
-                }
-                return TabsScreen();
-              } else {
-                return Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-            }),
+        home: SignProcess(),
         routes: {
           TopScreen.routeName: (ctx) => TopScreen(),
           MyQuestionsScreen.routeName: (ctx) => MyQuestionsScreen(),
@@ -103,6 +87,60 @@ class MyHomePage extends StatelessWidget {
           SettingsScreen.routeName: (ctx) => SettingsScreen(),
         },
       ),
+    );
+  }
+}
+
+class SignProcess extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Consumer(builder: (context, AuthService authService, _) {
+        // ログインの状態に応じて処理を遷移させる。
+        switch (authService.status) {
+          case Status.uninitialized:
+            print('uninitialized');
+            return Center(child: CircularProgressIndicator());
+          case Status.unauthenticated:
+            return IntroductionScreen();
+          case Status.authenticating:
+            print('anonymously');
+            return Center(
+                child: CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+            ));
+          case Status.authenticated:
+            print("authenticated");
+            break;
+        }
+        return ViewPage();
+      }),
+    );
+  }
+}
+
+class ViewPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.connectionState == ConnectionState.active) {
+              User user = userSnapshot.data;
+              if (user == null) {
+                return IntroductionScreen();
+              }
+              return TabsScreen();
+            } else {
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          }),
     );
   }
 }
