@@ -18,4 +18,19 @@ class QuestionModel {
   String get title => _title;
   String get description => _description;
   Timestamp get createAt => _createdAt;
+
+  QuestionModel.fromMap(map) {
+    _docId = map.id;
+    _title = map['title'];
+    _description = map['description'];
+    _createdAt = map['createdAt'];
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{};
+    map['title'] = _title;
+    map['description'] = _description;
+    map['createdAt'] = _createdAt;
+    return map;
+  }
 }
