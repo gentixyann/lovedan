@@ -42,6 +42,8 @@ class QuestionCard extends StatelessWidget {
                         // 'どうして異性と付き合ったら行為をしなければいけないんですか？',
                         questionService.questions[index].title,
                         style: Theme.of(context).textTheme.headline6,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     SizedBox(
