@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../config/size_config.dart';
 import '../../services/question_service.dart';
+import '../../screens/question/question_detail.dart';
 
 class QuestionCard extends StatelessWidget {
-  void _selectQuestion() {
-    print('_selectQuestion');
+  void _selectQuestion(BuildContext ctx, String questionId) {
+    Navigator.of(ctx)
+        .pushNamed(QuestionDetail.routeName, arguments: {'id': questionId});
   }
 
   DateFormat outputFormat = DateFormat('yyyy-MM-dd');
@@ -20,11 +22,14 @@ class QuestionCard extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           final _date = questionService.questions[index].createdAt.toDate();
           return InkWell(
-            onTap: () => _selectQuestion(),
+            onTap: () => _selectQuestion(
+              context,
+              questionService.questions[index].docId,
+            ),
             // borderRadius: BorderRadius.circular(10),
             child: SizedBox(
               width: double.infinity,
-              height: SizeConfig.blockSizeVertical * 30,
+              height: SizeConfig.blockSizeVertical * 28,
               child: Card(
                 elevation: 15,
                 shape: RoundedRectangleBorder(
