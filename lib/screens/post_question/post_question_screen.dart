@@ -10,11 +10,6 @@ class PostQuestionScreen extends StatelessWidget {
   final titleEditingController = TextEditingController();
   final descEditingController = TextEditingController();
 
-  void _postQuestion() {
-    print(titleEditingController.text);
-    print(descEditingController.text);
-  }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

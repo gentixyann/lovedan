@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/question/question_card.dart';
 import '../config/size_config.dart';
 import '../screens/post_question/post_question_screen.dart';
@@ -16,11 +17,32 @@ class TopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final authService = Provider.of<AuthService>(context);
+    final questionService = Provider.of<QuestionService>(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: 20, vertical: SizeConfig.blockSizeVertical * 5),
-        child: QuestionCard(),
+        child: StreamBuilder<QuerySnapshot>(
+            stream: questionService.allQuestionPath
+                .orderBy('createdAt')
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              }
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return CircularProgressIndicator();
+                default:
+                  // streamからデータを取得できたので、使いやすい形にかえてあげる
+                  questionService.init(snapshot.data.docs);
+                  return QuestionCard();
+              }
+            }),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

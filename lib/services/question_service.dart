@@ -5,7 +5,7 @@ import '../models/question_model.dart';
 
 class QuestionService extends ChangeNotifier {
   String uid;
-  List _questions;
+  List<QuestionModel> _questions;
 
   QuestionService();
 
@@ -13,7 +13,7 @@ class QuestionService extends ChangeNotifier {
       FirebaseFirestore.instance.collection('questions');
   CollectionReference get myQuestionPath =>
       FirebaseFirestore.instance.collection('users/$uid/myQuestions');
-  List get questions => _questions;
+  List<QuestionModel> get questions => _questions;
 
   void init(List<DocumentSnapshot> docs) {
     _questions = docs.map((doc) => QuestionModel.fromMap(doc)).toList();

@@ -17,7 +17,7 @@ class QuestionModel {
   String get docId => _docId;
   String get title => _title;
   String get description => _description;
-  Timestamp get createAt => _createdAt;
+  Timestamp get createdAt => _createdAt;
 
   QuestionModel.fromMap(map) {
     _docId = map.id;
