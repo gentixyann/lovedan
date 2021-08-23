@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import '../../config/size_config.dart';
 import '../../services/question_service.dart';
 
@@ -7,6 +8,8 @@ class QuestionCard extends StatelessWidget {
   void _selectQuestion() {
     print('_selectQuestion');
   }
+
+  DateFormat outputFormat = DateFormat('yyyy-MM-dd');
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class QuestionCard extends StatelessWidget {
                             size: 30,
                             color: Colors.grey,
                           ),
-                          Text(_date.toString())
+                          Text(outputFormat.format(_date).toString())
                         ],
                       ),
                     )
