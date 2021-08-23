@@ -25,7 +25,7 @@ class TopScreen extends StatelessWidget {
             horizontal: 20, vertical: SizeConfig.blockSizeVertical * 5),
         child: StreamBuilder<QuerySnapshot>(
             stream: questionService.allQuestionPath
-                .orderBy('createdAt')
+                .orderBy('createdAt', descending: true)
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
