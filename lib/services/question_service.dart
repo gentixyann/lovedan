@@ -28,11 +28,15 @@ class QuestionService extends ChangeNotifier {
     _question = QuestionModel.fromMap(doc);
   }
 
-  void postQuestion(String title, String description) {
+  void postQuestion(String title, String description, String posterName) {
+    if (posterName.isEmpty) {
+      posterName = '匿名';
+    }
     allQuestionPath.add({
       'poster': uid,
       'title': title,
       'description': description,
+      'posterName': posterName,
       'createdAt': Timestamp.now(),
     });
   }

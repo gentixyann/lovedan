@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import '../../config/size_config.dart';
 import '../../services/question_service.dart';
 
 class QuestionDetail extends StatelessWidget {
   static const routeName = '/question-detail';
+  DateFormat outputFormat = DateFormat('yyyy-MM-dd');
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,7 @@ class QuestionDetail extends StatelessWidget {
     final _questionId = routeArgs['id'];
     final questionService = Provider.of<QuestionService>(context);
     questionService.questionId = _questionId;
+    final _date = questionService.question.createdAt.toDate();
     return Scaffold(
         appBar: AppBar(
           title: Text('悩みをみる'),
@@ -61,7 +64,17 @@ class QuestionDetail extends StatelessWidget {
                           questionService.question.description,
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text(questionService.question.posterName),
+                          Text(' / '),
+                          Text(outputFormat.format(_date).toString()),
+                        ],
+                      ),
                     ],
                   );
               }

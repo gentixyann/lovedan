@@ -9,6 +9,7 @@ class PostQuestionScreen extends StatelessWidget {
 
   final titleEditingController = TextEditingController();
   final descEditingController = TextEditingController();
+  final nameEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +63,30 @@ class PostQuestionScreen extends StatelessWidget {
                 SizedBox(
                   height: 5 * SizeConfig.blockSizeVertical,
                 ),
+                Text(
+                  '名前',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                TextFormField(
+                  controller: nameEditingController,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
+                  maxLength: 15,
+                  decoration: InputDecoration(
+                    hintText: '無記名の場合「匿名」になります',
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                ),
+                SizedBox(
+                  height: 5 * SizeConfig.blockSizeVertical,
+                ),
                 ElevatedButton(
                   onPressed: () {
                     questionService.postQuestion(
                       titleEditingController.text,
                       descEditingController.text,
+                      nameEditingController.text,
                     );
                   },
                   child: Padding(
