@@ -11,7 +11,7 @@ import './screens/settings/settings_screen.dart';
 import './screens/introduction/introduction_screen.dart';
 import './services/auth_service.dart';
 import './services/question_service.dart';
-import './screens/question/question_detail.dart';
+import 'screens/question/question_detail_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

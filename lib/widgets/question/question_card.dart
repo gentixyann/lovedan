@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../config/size_config.dart';
 import '../../services/question_service.dart';
-import '../../screens/question/question_detail.dart';
+import '../../screens/question/question_detail_screen.dart';
 
 class QuestionCard extends StatelessWidget {
   void _selectQuestion(BuildContext ctx, String questionId) {
@@ -22,16 +22,16 @@ class QuestionCard extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           final _date = questionService.questions[index].createdAt.toDate();
           return InkWell(
+            splashColor: Theme.of(context).primaryColor,
             onTap: () => _selectQuestion(
               context,
               questionService.questions[index].docId,
             ),
-            // borderRadius: BorderRadius.circular(10),
             child: SizedBox(
               width: double.infinity,
               height: SizeConfig.blockSizeVertical * 28,
               child: Card(
-                elevation: 15,
+                elevation: 5,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40)),
                 child: Column(
@@ -44,7 +44,6 @@ class QuestionCard extends StatelessWidget {
                         horizontal: 20,
                       ),
                       child: Text(
-                        // 'どうして異性と付き合ったら行為をしなければいけないんですか？',
                         questionService.questions[index].title,
                         style: Theme.of(context).textTheme.headline6,
                         maxLines: 4,

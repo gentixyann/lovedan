@@ -21,8 +21,8 @@ class TopScreen extends StatelessWidget {
     final questionService = Provider.of<QuestionService>(context);
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 20, vertical: SizeConfig.blockSizeVertical * 5),
+        padding: EdgeInsets.only(
+            top: SizeConfig.blockSizeVertical * 5, left: 10, right: 10),
         child: StreamBuilder<QuerySnapshot>(
             stream: questionService.allQuestionPath
                 .orderBy('createdAt', descending: true)
