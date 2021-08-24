@@ -21,7 +21,10 @@ class QuestionDetail extends StatelessWidget {
         ),
         body: Padding(
           padding: EdgeInsets.only(
-              top: SizeConfig.blockSizeVertical * 5, left: 10, right: 10),
+            top: SizeConfig.blockSizeVertical * 5,
+            left: SizeConfig.blockSizeHorizontal * 7,
+            right: SizeConfig.blockSizeHorizontal * 7,
+          ),
           child: StreamBuilder<DocumentSnapshot>(
             stream: questionService.questionPaht.snapshots(),
             builder: (BuildContext context,
@@ -41,11 +44,23 @@ class QuestionDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 20,
+                        padding: EdgeInsets.symmetric(),
+                        child: Text(
+                          questionService.question.title,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
-                        child: Text(questionService.question.title),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.blockSizeHorizontal * 3,
+                        ),
+                        child: Text(
+                          questionService.question.description,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
                       )
                     ],
                   );
