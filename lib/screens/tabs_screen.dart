@@ -42,8 +42,9 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-    final questionService = Provider.of<QuestionService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
+    final questionService =
+        Provider.of<QuestionService>(context, listen: false);
     questionService.uid = authService.user.uid;
     return Scaffold(
       body: _pages[_selectedPageIndex]['page'],

@@ -16,7 +16,8 @@ class QuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final questionService = Provider.of<QuestionService>(context);
+    final questionService =
+        Provider.of<QuestionService>(context, listen: false);
     return ListView.builder(
         itemCount: questionService.questions.length,
         itemBuilder: (BuildContext context, int index) {

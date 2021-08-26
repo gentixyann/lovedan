@@ -14,7 +14,8 @@ class PostQuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final questionService = Provider.of<QuestionService>(context);
+    final questionService =
+        Provider.of<QuestionService>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('悩みを投稿'),

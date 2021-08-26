@@ -17,8 +17,8 @@ class TopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final authService = Provider.of<AuthService>(context);
-    final questionService = Provider.of<QuestionService>(context);
+    final questionService =
+        Provider.of<QuestionService>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(

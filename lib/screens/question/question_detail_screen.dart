@@ -18,7 +18,8 @@ class QuestionDetail extends StatelessWidget {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, Object>;
     final _questionId = routeArgs['id'];
-    final questionService = Provider.of<QuestionService>(context);
+    final questionService =
+        Provider.of<QuestionService>(context, listen: false);
     questionService.questionId = _questionId;
 
     return Scaffold(
