@@ -14,9 +14,9 @@ class QuestionDetailScreen extends StatelessWidget {
   DateTime _date;
   QuestionModel _question;
 
-  void _addComment(BuildContext ctx, String questionId) {
+  void _goToPostComment(BuildContext ctx, QuestionModel question) {
     Navigator.of(ctx)
-        .pushNamed(PostCommentScreen.routeName, arguments: {'id': questionId});
+        .pushNamed(PostCommentScreen.routeName, arguments: question);
   }
 
   @override
@@ -106,7 +106,7 @@ class QuestionDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          _addComment(context, _question.docId);
+          _goToPostComment(context, _question);
         },
         label: const Text('悩みに回答する'),
         icon: const Icon(Icons.add_comment),
