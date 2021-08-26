@@ -7,8 +7,8 @@ import '../../screens/question/question_detail_screen.dart';
 
 class QuestionCard extends StatelessWidget {
   void _selectQuestion(BuildContext ctx, String questionId) {
-    Navigator.of(ctx)
-        .pushNamed(QuestionDetail.routeName, arguments: {'id': questionId});
+    Navigator.of(ctx).pushNamed(QuestionDetailScreen.routeName,
+        arguments: {'id': questionId});
   }
 
   DateFormat outputFormat = DateFormat('yyyy-MM-dd');
@@ -34,7 +34,7 @@ class QuestionCard extends StatelessWidget {
               child: Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
+                    borderRadius: BorderRadius.circular(25)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

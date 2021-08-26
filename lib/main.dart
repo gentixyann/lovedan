@@ -12,6 +12,7 @@ import './screens/introduction/introduction_screen.dart';
 import './services/auth_service.dart';
 import './services/question_service.dart';
 import 'screens/question/question_detail_screen.dart';
+import './screens/post_comment/post_comment_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,7 +87,8 @@ class MyHomePage extends StatelessWidget {
           MyQuestionsScreen.routeName: (ctx) => MyQuestionsScreen(),
           PostQuestionScreen.routeName: (ctx) => PostQuestionScreen(),
           SettingsScreen.routeName: (ctx) => SettingsScreen(),
-          QuestionDetail.routeName: (ctx) => QuestionDetail(),
+          QuestionDetailScreen.routeName: (ctx) => QuestionDetailScreen(),
+          PostCommentScreen.routeName: (ctx) => PostCommentScreen(),
         },
       ),
     );

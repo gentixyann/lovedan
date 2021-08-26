@@ -5,12 +5,19 @@ import 'package:intl/intl.dart';
 import '../../models/question_model.dart';
 import '../../config/size_config.dart';
 import '../../services/question_service.dart';
+import '../../widgets/comment/view_comments.dart';
+import '../../screens/post_comment/post_comment_screen.dart';
 
-class QuestionDetail extends StatelessWidget {
+class QuestionDetailScreen extends StatelessWidget {
   static const routeName = '/question-detail';
-  DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+  final DateFormat outputFormat = DateFormat('yyyy-MM-dd');
   DateTime _date;
   QuestionModel _question;
+
+  void _addComment(BuildContext ctx, String questionId) {
+    Navigator.of(ctx)
+        .pushNamed(PostCommentScreen.routeName, arguments: {'id': questionId});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +30,12 @@ class QuestionDetail extends StatelessWidget {
     questionService.questionId = _questionId;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('悩みをみる'),
-        ),
-        body: Padding(
-          padding: EdgeInsets.only(
-            top: SizeConfig.blockSizeVertical * 5,
-            left: SizeConfig.blockSizeHorizontal * 7,
-            right: SizeConfig.blockSizeHorizontal * 7,
-          ),
-          child: StreamBuilder<DocumentSnapshot>(
+      appBar: AppBar(
+        title: Text('悩みをみる'),
+      ),
+      body: Column(
+        children: <Widget>[
+          StreamBuilder<DocumentSnapshot>(
             stream: questionService.questionPaht.snapshots(),
             builder: (BuildContext context,
                 AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -49,48 +52,66 @@ class QuestionDetail extends StatelessWidget {
                   questionService.getQuestion(snapshot.data);
                   _date = questionService.question.createdAt.toDate();
                   _question = questionService.question;
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.symmetric(),
-                        child: Text(
-                          _question.title,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.blockSizeHorizontal * 3,
-                        ),
-                        child: Text(
-                          questionService.question.description,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            _question.posterName,
-                            style: TextStyle(color: Colors.grey),
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: SizeConfig.blockSizeVertical * 5,
+                      left: SizeConfig.blockSizeHorizontal * 7,
+                      right: SizeConfig.blockSizeHorizontal * 7,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(),
+                          child: Text(
+                            _question.title,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
-                          Text(' / '),
-                          Text(outputFormat.format(_date).toString(),
-                              style: TextStyle(color: Colors.grey))
-                        ],
-                      ),
-                    ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.blockSizeHorizontal * 3,
+                          ),
+                          child: Text(
+                            questionService.question.description,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              _question.posterName,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Text(' / '),
+                            Text(outputFormat.format(_date).toString(),
+                                style: TextStyle(color: Colors.grey))
+                          ],
+                        ),
+                      ],
+                    ),
                   );
               }
             },
           ),
-        ));
+          ViewComments(),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          _addComment(context, _question.docId);
+        },
+        label: const Text('悩みに回答する'),
+        icon: const Icon(Icons.add_comment),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 }
