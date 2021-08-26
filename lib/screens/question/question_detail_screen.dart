@@ -2,12 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../../models/question_model.dart';
 import '../../config/size_config.dart';
 import '../../services/question_service.dart';
 
 class QuestionDetail extends StatelessWidget {
   static const routeName = '/question-detail';
   DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+  DateTime _date;
+  QuestionModel _question;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class QuestionDetail extends StatelessWidget {
     final _questionId = routeArgs['id'];
     final questionService = Provider.of<QuestionService>(context);
     questionService.questionId = _questionId;
-    final _date = questionService.question.createdAt.toDate();
+
     return Scaffold(
         appBar: AppBar(
           title: Text('悩みをみる'),
@@ -43,13 +46,15 @@ class QuestionDetail extends StatelessWidget {
                 default:
                   // streamからデータを取得できたので、使いやすい形にかえてあげる
                   questionService.getQuestion(snapshot.data);
+                  _date = questionService.question.createdAt.toDate();
+                  _question = questionService.question;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.symmetric(),
                         child: Text(
-                          questionService.question.title,
+                          _question.title,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
@@ -70,9 +75,9 @@ class QuestionDetail extends StatelessWidget {
                       ),
                       Row(
                         children: <Widget>[
-                          Text(questionService.question.posterName),
+                          Text(_question.posterName),
                           Text(' / '),
-                          Text(outputFormat.format(_date).toString()),
+                          Text(outputFormat.format(_date).toString())
                         ],
                       ),
                     ],
