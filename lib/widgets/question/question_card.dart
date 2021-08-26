@@ -63,7 +63,8 @@ class QuestionCard extends StatelessWidget {
                             size: 30,
                             color: Colors.grey,
                           ),
-                          Text(outputFormat.format(_date).toString())
+                          Text(outputFormat.format(_date).toString(),
+                              style: TextStyle(color: Colors.grey))
                         ],
                       ),
                     )

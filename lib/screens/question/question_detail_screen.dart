@@ -72,13 +72,18 @@ class QuestionDetail extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Text(_question.posterName),
+                          Text(
+                            _question.posterName,
+                            style: TextStyle(color: Colors.grey),
+                          ),
                           Text(' / '),
-                          Text(outputFormat.format(_date).toString())
+                          Text(outputFormat.format(_date).toString(),
+                              style: TextStyle(color: Colors.grey))
                         ],
                       ),
                     ],
