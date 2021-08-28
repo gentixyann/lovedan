@@ -20,4 +20,21 @@ class CommentModel {
   String get commentedUserName => _commentedUserName;
   String get commentText => _commentText;
   Timestamp get createdAt => _createdAt;
+
+  CommentModel.fromMap(map) {
+    _docId = map.id;
+    _commentedUserId = map['commentedUserId'];
+    _commentedUserName = map['commentedUserName'];
+    _commentText = map['commentText'];
+    _createdAt = map['createdAt'];
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{};
+    map['commentedUserId'] = _commentedUserId;
+    map['commentedUserName'] = _commentedUserName;
+    map['commentText'] = _commentText;
+    map['createdAt'] = _createdAt;
+    return map;
+  }
 }
