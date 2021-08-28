@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CommentModel {
   String _docId;
+  String _questionId;
   String _commentedUserId;
   String _commentedUserName;
   String _commentText;
@@ -9,6 +10,7 @@ class CommentModel {
 
   CommentModel(
     this._docId,
+    this._questionId,
     this._commentedUserId,
     this._commentedUserName,
     this._commentText,
@@ -16,6 +18,7 @@ class CommentModel {
   );
 
   String get docId => _docId;
+  String get questionId => _questionId;
   String get commentedUserId => _commentedUserId;
   String get commentedUserName => _commentedUserName;
   String get commentText => _commentText;
@@ -23,6 +26,7 @@ class CommentModel {
 
   CommentModel.fromMap(map) {
     _docId = map.id;
+    _questionId = map['questionId'];
     _commentedUserId = map['commentedUserId'];
     _commentedUserName = map['commentedUserName'];
     _commentText = map['commentText'];
@@ -31,6 +35,7 @@ class CommentModel {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
+    map['questionId'] = _questionId;
     map['commentedUserId'] = _commentedUserId;
     map['commentedUserName'] = _commentedUserName;
     map['commentText'] = _commentText;
