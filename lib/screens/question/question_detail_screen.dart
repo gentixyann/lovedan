@@ -76,7 +76,7 @@ class QuestionDetailScreen extends StatelessWidget {
                             horizontal: SizeConfig.blockSizeHorizontal * 3,
                           ),
                           child: Text(
-                            questionService.question.description,
+                            _question.description,
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ),
