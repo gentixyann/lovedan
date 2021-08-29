@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../../models/question_model.dart';
 import '../../config/size_config.dart';
+import '../../services/comment_service.dart';
 
 class PostCommentScreen extends StatelessWidget {
   static const routeName = '/post-comment';
@@ -19,6 +21,8 @@ class PostCommentScreen extends StatelessWidget {
     SizeConfig().init(context);
     _question = ModalRoute.of(context).settings.arguments;
     _date = _question.createdAt.toDate();
+
+    final commentService = Provider.of<CommentService>(context, listen: false);
 
     return Scaffold(
         appBar: AppBar(
@@ -125,8 +129,28 @@ class PostCommentScreen extends StatelessWidget {
                           maxLines: 1,
                           maxLength: 15,
                           decoration: InputDecoration(
-                            hintText: '無記名の場合「匿名」になります',
+                            hintText: '無記名の場合「匿名」になるよ',
                             hintStyle: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5 * SizeConfig.blockSizeVertical,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            print('post comment');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: const Text(
+                              '回答内容を確認する',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).accentColor,
+                            onPrimary: Colors.black,
+                            shape: const StadiumBorder(),
                           ),
                         ),
                       ],

@@ -11,6 +11,7 @@ import './screens/settings/settings_screen.dart';
 import './screens/introduction/introduction_screen.dart';
 import './services/auth_service.dart';
 import './services/question_service.dart';
+import './services/comment_service.dart';
 import 'screens/question/question_detail_screen.dart';
 import './screens/post_comment/post_comment_screen.dart';
 
@@ -58,7 +59,10 @@ class MyHomePage extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => QuestionService(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CommentService(),
+        ),
       ],
       child: MaterialApp(
         title: 'LoveDan',
