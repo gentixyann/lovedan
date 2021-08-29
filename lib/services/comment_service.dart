@@ -16,4 +16,17 @@ class CommentService extends ChangeNotifier {
       FirebaseFirestore.instance.collection('questions/$questionId/comments');
   DocumentReference get addComentPath =>
       FirebaseFirestore.instance.doc('questions/$questionId/comments');
+
+  void postComment(String commentText, String commentedUserName) {
+    if (commentedUserName.isEmpty) {
+      commentedUserName = '匿名';
+    }
+    commentsPath.add({
+      'questionId': questionId,
+      'commentedUserId': uid,
+      'commentedUserName': commentedUserName,
+      'commentText': commentText,
+      'createdAt': Timestamp.now(),
+    });
+  }
 }

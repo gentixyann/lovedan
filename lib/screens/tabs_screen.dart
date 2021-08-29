@@ -5,6 +5,7 @@ import '../screens/top_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../services/auth_service.dart';
 import '../services/question_service.dart';
+import '../services/comment_service.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -45,7 +46,9 @@ class _TabsScreenState extends State<TabsScreen> {
     final authService = Provider.of<AuthService>(context, listen: false);
     final questionService =
         Provider.of<QuestionService>(context, listen: false);
+    final commentService = Provider.of<CommentService>(context, listen: false);
     questionService.uid = authService.user.uid;
+    commentService.uid = authService.user.uid;
     return Scaffold(
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(

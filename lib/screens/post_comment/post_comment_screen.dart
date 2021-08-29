@@ -23,6 +23,7 @@ class PostCommentScreen extends StatelessWidget {
     _date = _question.createdAt.toDate();
 
     final commentService = Provider.of<CommentService>(context, listen: false);
+    commentService.questionId = _question.docId;
 
     return Scaffold(
         appBar: AppBar(
@@ -138,7 +139,9 @@ class PostCommentScreen extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            print('post comment');
+                            commentService.postComment(
+                                commentEditingController.text,
+                                nameEditingController.text);
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(15),
