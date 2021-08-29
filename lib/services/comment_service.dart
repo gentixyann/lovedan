@@ -16,6 +16,11 @@ class CommentService extends ChangeNotifier {
       FirebaseFirestore.instance.collection('questions/$questionId/comments');
   DocumentReference get addComentPath =>
       FirebaseFirestore.instance.doc('questions/$questionId/comments');
+  List<CommentModel> get comments => _comments;
+
+  void getComments(List<DocumentSnapshot> docs) {
+    _comments = docs.map((doc) => CommentModel.fromMap(doc)).toList();
+  }
 
   void postComment(String commentText, String commentedUserName) {
     if (commentedUserName.isEmpty) {

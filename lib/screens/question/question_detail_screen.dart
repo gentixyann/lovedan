@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../models/question_model.dart';
 import '../../config/size_config.dart';
 import '../../services/question_service.dart';
+import '../../services/comment_service.dart';
 import '../../widgets/comment/view_comments.dart';
 import '../../screens/post_comment/post_comment_screen.dart';
 
@@ -27,7 +28,9 @@ class QuestionDetailScreen extends StatelessWidget {
     final _questionId = routeArgs['id'];
     final questionService =
         Provider.of<QuestionService>(context, listen: false);
+    final commentService = Provider.of<CommentService>(context, listen: false);
     questionService.questionId = _questionId;
+    commentService.questionId = _questionId;
 
     return Scaffold(
       appBar: AppBar(
