@@ -1,11 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import '../../config/size_config.dart';
 import '../../services/comment_service.dart';
+import '../../models/comment_model.dart';
 
 class ViewComments extends StatelessWidget {
+  CommentModel _comment;
+  final DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+  DateTime _date;
+
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final commentService = Provider.of<CommentService>(context, listen: false);
     return StreamBuilder<QuerySnapshot>(
         stream: commentService.commentsPath
@@ -25,47 +33,50 @@ class ViewComments extends StatelessWidget {
               commentService.getComments(snapshot.data.docs);
               return Expanded(
                 child: ListView.builder(
+                    padding: EdgeInsets.only(
+                        top: SizeConfig.blockSizeVertical * 5,
+                        left: 10,
+                        right: 10),
                     itemCount: commentService.comments.length,
                     itemBuilder: (BuildContext context, int index) {
+                      _date = commentService.comments[index].createdAt.toDate();
                       return Card(
                         elevation: 5,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Column(
                           children: <Widget>[
-                            Text('削除要請とか'),
+                            Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                        commentService
+                                            .comments[index].commentedUserName,
+                                        style: TextStyle(color: Colors.grey)),
+                                    Text(' / '),
+                                    Text(outputFormat.format(_date).toString(),
+                                        style: TextStyle(color: Colors.grey)),
+                                  ],
+                                )),
                             Divider(
                               thickness: 1,
                               color: Colors.grey,
                               height: 5,
                             ),
-                            Text(commentService.comments[index].commentText),
+                            Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                child: Text(
+                                  commentService.comments[index].commentText,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                )),
                           ],
                         ),
                       );
                     }),
               );
-
-            // SizedBox(
-            //   width: double.infinity,
-            //   height: 100,
-            //   child: Card(
-            //     elevation: 5,
-            //     shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(20)),
-            //     child: Column(
-            //       children: <Widget>[
-            //         Text('削除要請とか'),
-            //         Divider(
-            //           thickness: 1,
-            //           color: Colors.grey,
-            //           height: 5,
-            //         ),
-            //         Text('回答の内容'),
-            //       ],
-            //     ),
-            //   ),
-            // );
           }
         });
   }
