@@ -93,11 +93,9 @@ class PostCommentScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
-                  top: SizeConfig.blockSizeVertical * 5,
-                  left: SizeConfig.blockSizeHorizontal * 7,
-                  right: SizeConfig.blockSizeHorizontal * 7,
-                ),
+                padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.blockSizeVertical * 5,
+                    horizontal: SizeConfig.blockSizeHorizontal * 7),
                 child: Form(
                     key: _form,
                     child: Column(

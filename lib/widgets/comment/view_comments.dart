@@ -31,8 +31,9 @@ class ViewComments extends StatelessWidget {
             default:
               // streamからデータを取得できたので、使いやすい形にかえてあげる
               commentService.getComments(snapshot.data.docs);
-              return Expanded(
+              return Flexible(
                 child: ListView.builder(
+                    shrinkWrap: true,
                     padding: EdgeInsets.only(
                         top: SizeConfig.blockSizeVertical * 5,
                         left: 10,
@@ -40,39 +41,45 @@ class ViewComments extends StatelessWidget {
                     itemCount: commentService.comments.length,
                     itemBuilder: (BuildContext context, int index) {
                       _date = commentService.comments[index].createdAt.toDate();
-                      return Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                child: Row(
-                                  children: <Widget>[
-                                    Text(
-                                        commentService
-                                            .comments[index].commentedUserName,
-                                        style: TextStyle(color: Colors.grey)),
-                                    Text(' / '),
-                                    Text(outputFormat.format(_date).toString(),
-                                        style: TextStyle(color: Colors.grey)),
-                                  ],
-                                )),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                              height: 5,
-                            ),
-                            Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                child: Text(
-                                  commentService.comments[index].commentText,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                )),
-                          ],
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            bottom: SizeConfig.blockSizeVertical * 2),
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                          commentService.comments[index]
+                                              .commentedUserName,
+                                          style: TextStyle(color: Colors.grey)),
+                                      Text(' / '),
+                                      Text(
+                                          outputFormat.format(_date).toString(),
+                                          style: TextStyle(color: Colors.grey)),
+                                    ],
+                                  )),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.grey,
+                                height: 5,
+                              ),
+                              Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  child: Text(
+                                    commentService.comments[index].commentText,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  )),
+                            ],
+                          ),
                         ),
                       );
                     }),

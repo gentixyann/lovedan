@@ -20,6 +20,10 @@ class QuestionDetailScreen extends StatelessWidget {
         .pushNamed(PostCommentScreen.routeName, arguments: question);
   }
 
+  void _openComment() {
+    print('tap');
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -104,7 +108,19 @@ class QuestionDetailScreen extends StatelessWidget {
               }
             },
           ),
-          ViewComments(),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Center(
+              child: IconButton(
+                icon: Icon(
+                  Icons.comment,
+                  size: 40,
+                ),
+                onPressed: _openComment,
+              ),
+            ),
+          ),
+          // ViewComments(),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
