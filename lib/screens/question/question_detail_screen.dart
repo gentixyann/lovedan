@@ -116,7 +116,10 @@ class QuestionDetailScreen extends StatelessWidget {
                   Icons.comment,
                   size: 40,
                 ),
-                onPressed: _openComment,
+                onPressed: () => showModalBottomSheet(
+                  context: context,
+                  builder: (context) => ViewComments(),
+                ),
               ),
             ),
           ),
@@ -133,4 +136,6 @@ class QuestionDetailScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
+  Widget buildSheet() => Container();
 }
