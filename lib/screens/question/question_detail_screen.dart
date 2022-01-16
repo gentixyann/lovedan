@@ -129,7 +129,8 @@ class QuestionDetailScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding:
+                  EdgeInsets.only(bottom: SizeConfig.blockSizeVertical * 10),
               child: Center(
                   child: ElevatedButton.icon(
                 onPressed: () {
@@ -138,22 +139,23 @@ class QuestionDetailScreen extends StatelessWidget {
                 icon: const Icon(Icons.add_comment),
                 label: const Text('悩みに回答する'),
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
+                  primary: Theme.of(context).accentColor,
+                  onPrimary: Colors.black,
+                  shape: const StadiumBorder(),
                 ),
               )),
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          _goToPostComment(context, _question);
-        },
-        label: const Text('悩みに回答する'),
-        icon: const Icon(Icons.add_comment),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     _goToPostComment(context, _question);
+      //   },
+      //   label: const Text('悩みに回答する'),
+      //   icon: const Icon(Icons.add_comment),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
