@@ -40,91 +40,111 @@ class QuestionDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('悩みをみる'),
       ),
-      body: Column(
-        children: <Widget>[
-          StreamBuilder<DocumentSnapshot>(
-            stream: questionService.questionPaht.snapshots(),
-            builder: (BuildContext context,
-                AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
-                );
-              }
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return CircularProgressIndicator();
-                default:
-                  // streamからデータを取得できたので、使いやすい形にかえてあげる
-                  questionService.getQuestion(snapshot.data);
-                  _date = questionService.question.createdAt.toDate();
-                  _question = questionService.question;
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      top: SizeConfig.blockSizeVertical * 5,
-                      left: SizeConfig.blockSizeHorizontal * 7,
-                      right: SizeConfig.blockSizeHorizontal * 7,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.symmetric(),
-                          child: Text(
-                            _question.title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal * 3,
-                          ),
-                          child: Text(
-                            _question.description,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              _question.posterName,
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text(' / '),
-                            Text(outputFormat.format(_date).toString(),
-                                style: TextStyle(color: Colors.grey))
-                          ],
-                        ),
-                      ],
-                    ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            StreamBuilder<DocumentSnapshot>(
+              stream: questionService.questionPaht.snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
                   );
-              }
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: Center(
-              child: IconButton(
-                icon: Icon(
-                  Icons.comment,
-                  size: 40,
-                ),
-                onPressed: () => showModalBottomSheet(
-                  context: context,
-                  builder: (context) => ViewComments(),
+                }
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return CircularProgressIndicator();
+                  default:
+                    // streamからデータを取得できたので、使いやすい形にかえてあげる
+                    questionService.getQuestion(snapshot.data);
+                    _date = questionService.question.createdAt.toDate();
+                    _question = questionService.question;
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        top: SizeConfig.blockSizeVertical * 5,
+                        left: SizeConfig.blockSizeHorizontal * 7,
+                        right: SizeConfig.blockSizeHorizontal * 7,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(),
+                            child: Text(
+                              _question.title,
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.blockSizeHorizontal * 3,
+                            ),
+                            child: Text(
+                              _question.description,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                _question.posterName,
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text(' / '),
+                              Text(outputFormat.format(_date).toString(),
+                                  style: TextStyle(color: Colors.grey))
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                }
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.comment,
+                    size: 40,
+                  ),
+                  onPressed: () => showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => ViewComments(),
+                  ),
                 ),
               ),
             ),
-          ),
-          // ViewComments(),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                  child: ElevatedButton.icon(
+                onPressed: () {
+                  _goToPostComment(context, _question);
+                },
+                icon: const Icon(Icons.add_comment),
+                label: const Text('悩みに回答する'),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                ),
+              )),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -136,6 +156,4 @@ class QuestionDetailScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
-
-  Widget buildSheet() => Container();
 }
