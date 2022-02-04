@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         // Check for errors
         if (snapshot.hasError) {
           return Center(
+            // snapshot.errorをStringに
             child: Text('読み込みでエラー発生' + (snapshot.error as String)),
           );
         }
@@ -134,11 +135,11 @@ class ViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<User>(
+      body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (ctx, userSnapshot) {
             if (userSnapshot.connectionState == ConnectionState.active) {
-              User user = userSnapshot.data;
+              User? user = userSnapshot.data;
               if (user == null) {
                 return IntroductionScreen();
               }
