@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         // Check for errors
         if (snapshot.hasError) {
           return Center(
-            child: Text('読み込みでエラー発生' + snapshot.error),
+            child: Text('読み込みでエラー発生' + (snapshot.error as String)),
           );
         }
 

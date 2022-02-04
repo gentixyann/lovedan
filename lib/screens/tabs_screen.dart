@@ -13,7 +13,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  List<Map<String, Object>> _pages;
+  List<Map<String, Object>>? _pages;
   int _selectedPageIndex = 0;
 
   @override
@@ -50,7 +50,7 @@ class _TabsScreenState extends State<TabsScreen> {
     questionService.uid = authService.user.uid;
     commentService.uid = authService.user.uid;
     return Scaffold(
-      body: _pages[_selectedPageIndex]['page'],
+      body: _pages?[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         unselectedItemColor: Colors.grey,
