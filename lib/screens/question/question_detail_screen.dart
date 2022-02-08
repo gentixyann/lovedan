@@ -12,8 +12,8 @@ import '../../screens/post_comment/post_comment_screen.dart';
 class QuestionDetailScreen extends StatelessWidget {
   static const routeName = '/question-detail';
   final DateFormat outputFormat = DateFormat('yyyy-MM-dd');
-  DateTime _date;
-  QuestionModel _question;
+  late DateTime _date;
+  late QuestionModel _question;
 
   void _goToPostComment(BuildContext ctx, QuestionModel question) {
     Navigator.of(ctx)
@@ -28,8 +28,8 @@ class QuestionDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, Object>;
-    final _questionId = routeArgs['id'];
+        ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
+    final _questionId = routeArgs['id'] as String;
     final questionService =
         Provider.of<QuestionService>(context, listen: false);
     final commentService = Provider.of<CommentService>(context, listen: false);
@@ -57,14 +57,14 @@ class QuestionDetailScreen extends StatelessWidget {
                     return CircularProgressIndicator();
                   default:
                     // streamからデータを取得できたので、使いやすい形にかえてあげる
-                    questionService.getQuestion(snapshot.data);
+                    questionService.getQuestion(snapshot.data!);
                     _date = questionService.question.createdAt.toDate();
                     _question = questionService.question;
                     return Padding(
                       padding: EdgeInsets.only(
-                        top: SizeConfig.blockSizeVertical * 5,
-                        left: SizeConfig.blockSizeHorizontal * 7,
-                        right: SizeConfig.blockSizeHorizontal * 7,
+                        top: SizeConfig.blockSizeVertical! * 5,
+                        left: SizeConfig.blockSizeHorizontal! * 7,
+                        right: SizeConfig.blockSizeHorizontal! * 7,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,7 +81,7 @@ class QuestionDetailScreen extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.blockSizeHorizontal * 3,
+                              horizontal: SizeConfig.blockSizeHorizontal! * 3,
                             ),
                             child: Text(
                               _question.description,
@@ -130,7 +130,7 @@ class QuestionDetailScreen extends StatelessWidget {
             ),
             Padding(
               padding:
-                  EdgeInsets.only(bottom: SizeConfig.blockSizeVertical * 10),
+                  EdgeInsets.only(bottom: SizeConfig.blockSizeVertical! * 10),
               child: Center(
                   child: ElevatedButton.icon(
                 onPressed: () {
@@ -139,7 +139,7 @@ class QuestionDetailScreen extends StatelessWidget {
                 icon: const Icon(Icons.add_comment),
                 label: const Text('悩みに回答する'),
                 style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).accentColor,
+                  primary: Theme.of(context).colorScheme.secondary,
                   onPrimary: Colors.black,
                   shape: const StadiumBorder(),
                 ),

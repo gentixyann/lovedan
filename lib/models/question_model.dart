@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QuestionModel {
-  String _docId;
-  String _title;
-  String _description;
-  String _posterName;
-  Timestamp _createdAt;
+  late String _docId;
+  late String _title;
+  late String _description;
+  late String _posterName;
+  late Timestamp _createdAt;
 
   QuestionModel(
     this._docId,
@@ -23,11 +23,11 @@ class QuestionModel {
   Timestamp get createdAt => _createdAt;
 
   QuestionModel.fromMap(map) {
-    _docId = map.id;
-    _title = map['title'];
-    _description = map['description'];
-    _posterName = map['posterName'];
-    _createdAt = map['createdAt'];
+    String _docId = map.id;
+    String _title = map['title'];
+    String _description = map['description'];
+    String _posterName = map['posterName'];
+    Timestamp _createdAt = map['createdAt'];
   }
 
   Map<String, dynamic> toMap() {

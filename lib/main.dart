@@ -70,7 +70,6 @@ class MyHomePage extends StatelessWidget {
         title: 'LoveDan',
         theme: ThemeData(
           primaryColor: HexColor('F8EEF4'),
-          accentColor: Colors.yellow[100],
           textTheme: TextTheme(
             headline5: TextStyle(
                 fontSize: 24.0,
@@ -86,6 +85,8 @@ class MyHomePage extends StatelessWidget {
             ),
             bodyText2: TextStyle(fontSize: 14.0),
           ),
+          colorScheme:
+              ColorScheme.fromSwatch().copyWith(secondary: Colors.yellow[100]),
         ),
         home: SignProcess(),
         routes: {

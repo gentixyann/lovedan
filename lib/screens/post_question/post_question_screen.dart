@@ -22,8 +22,8 @@ class PostQuestionScreen extends StatelessWidget {
       ),
       body: Container(
           padding: EdgeInsets.symmetric(
-            vertical: SizeConfig.blockSizeVertical * 5,
-            horizontal: SizeConfig.blockSizeHorizontal * 5,
+            vertical: SizeConfig.blockSizeVertical! * 5,
+            horizontal: SizeConfig.blockSizeHorizontal! * 5,
           ),
           child: Form(
             key: _form,
@@ -45,7 +45,7 @@ class PostQuestionScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 10 * SizeConfig.blockSizeVertical,
+                  height: 10 * SizeConfig.blockSizeVertical!,
                 ),
                 Text(
                   '内容',
@@ -62,7 +62,7 @@ class PostQuestionScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 5 * SizeConfig.blockSizeVertical,
+                  height: 5 * SizeConfig.blockSizeVertical!,
                 ),
                 Text(
                   '名前',
@@ -80,7 +80,7 @@ class PostQuestionScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 5 * SizeConfig.blockSizeVertical,
+                  height: 5 * SizeConfig.blockSizeVertical!,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -98,7 +98,7 @@ class PostQuestionScreen extends StatelessWidget {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).accentColor,
+                    primary: Theme.of(context).colorScheme.secondary,
                     onPrimary: Colors.black,
                     shape: const StadiumBorder(),
                   ),

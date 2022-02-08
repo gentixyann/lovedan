@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/question_model.dart';
 
 class QuestionService extends ChangeNotifier {
-  String uid;
-  String questionId;
-  QuestionModel _question;
-  List<QuestionModel> _questions;
+  late String uid;
+  late String questionId;
+  late QuestionModel _question;
+  late List<QuestionModel> _questions;
 
   QuestionService();
 
