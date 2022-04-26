@@ -7,16 +7,16 @@ import '../../services/comment_service.dart';
 import '../../models/comment_model.dart';
 
 class ViewComments extends StatelessWidget {
-  CommentModel _comment;
+  CommentModel? _comment;
   final DateFormat outputFormat = DateFormat('yyyy-MM-dd');
-  DateTime _date;
+  DateTime? _date;
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final commentService = Provider.of<CommentService>(context, listen: false);
     return Container(
-      height: SizeConfig.blockSizeVertical * 80,
+      height: SizeConfig.blockSizeVertical! * 80,
       child: StreamBuilder<QuerySnapshot>(
           stream: commentService.commentsPath
               .orderBy('createdAt', descending: true)
@@ -33,12 +33,12 @@ class ViewComments extends StatelessWidget {
                 return CircularProgressIndicator();
               default:
                 // streamからデータを取得できたので、使いやすい形にかえてあげる
-                commentService.getComments(snapshot.data.docs);
+                commentService.getComments(snapshot.data!.docs);
 
                 return ListView.builder(
                     shrinkWrap: true,
                     padding: EdgeInsets.only(
-                        top: SizeConfig.blockSizeVertical * 5,
+                        top: SizeConfig.blockSizeVertical! * 5,
                         left: 10,
                         right: 10),
                     itemCount: commentService.comments.length,
@@ -46,7 +46,7 @@ class ViewComments extends StatelessWidget {
                       _date = commentService.comments[index].createdAt.toDate();
                       return Padding(
                         padding: EdgeInsets.only(
-                            bottom: SizeConfig.blockSizeVertical * 2),
+                            bottom: SizeConfig.blockSizeVertical! * 2),
                         child: Card(
                           elevation: 5,
                           shape: RoundedRectangleBorder(
@@ -59,8 +59,9 @@ class ViewComments extends StatelessWidget {
                                   child: Row(
                                     children: <Widget>[
                                       Text(
-                                          commentService.comments[index]
-                                              .commentedUserName,
+                                          commentService
+                                              .comments[index].commentedUserName
+                                              .toString(),
                                           style: TextStyle(color: Colors.grey)),
                                       Text(' / '),
                                       Text(
@@ -77,7 +78,8 @@ class ViewComments extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: 15, horizontal: 15),
                                   child: Text(
-                                    commentService.comments[index].commentText,
+                                    commentService.comments[index].commentText
+                                        .toString(),
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   )),

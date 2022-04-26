@@ -4,11 +4,11 @@ import '../models/question_model.dart';
 import '../models/comment_model.dart';
 
 class CommentService extends ChangeNotifier {
-  String uid;
-  String questionId;
-  QuestionModel _question;
-  CommentModel _comment;
-  List<CommentModel> _comments;
+  late String uid;
+  late String questionId;
+  late QuestionModel _question;
+  late CommentModel _comment;
+  late List<CommentModel> _comments;
 
   CommentService();
 

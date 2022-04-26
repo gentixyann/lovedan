@@ -58,7 +58,7 @@ class QuestionDetailScreen extends StatelessWidget {
                   default:
                     // streamからデータを取得できたので、使いやすい形にかえてあげる
                     questionService.getQuestion(snapshot.data!);
-                    _date = questionService.question.createdAt.toDate();
+                    _date = questionService.question.createdAt!.toDate();
                     _question = questionService.question;
                     return Padding(
                       padding: EdgeInsets.only(
@@ -72,7 +72,7 @@ class QuestionDetailScreen extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.symmetric(),
                             child: Text(
-                              _question.title,
+                              _question.title.toString(),
                               style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
@@ -84,7 +84,7 @@ class QuestionDetailScreen extends StatelessWidget {
                               horizontal: SizeConfig.blockSizeHorizontal! * 3,
                             ),
                             child: Text(
-                              _question.description,
+                              _question.description.toString(),
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ),
@@ -95,7 +95,7 @@ class QuestionDetailScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                _question.posterName,
+                                _question.posterName.toString(),
                                 style: TextStyle(color: Colors.grey),
                               ),
                               Text(' / '),

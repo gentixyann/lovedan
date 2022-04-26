@@ -26,11 +26,11 @@ class QuestionCard extends StatelessWidget {
             splashColor: Theme.of(context).primaryColor,
             onTap: () => _selectQuestion(
               context,
-              questionService.questions[index].docId,
+              questionService.questions[index].docId.toString(),
             ),
             child: SizedBox(
               width: double.infinity,
-              height: SizeConfig.blockSizeVertical * 28,
+              height: SizeConfig.blockSizeVertical! * 28,
               child: Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
@@ -45,7 +45,7 @@ class QuestionCard extends StatelessWidget {
                         horizontal: 20,
                       ),
                       child: Text(
-                        questionService.questions[index].title,
+                        questionService.questions[index].title.toString(),
                         style: Theme.of(context).textTheme.headline6,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,

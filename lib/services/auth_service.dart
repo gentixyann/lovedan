@@ -6,14 +6,14 @@ enum Status { uninitialized, authenticated, authenticating, unauthenticated }
 
 class AuthService with ChangeNotifier {
   final FirebaseAuth _auth;
-  User _user;
+  User? _user;
   Status _status = Status.uninitialized;
 
   AuthService.instance() : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_authStateChanges);
   }
 
-  User get user => _user;
+  User? get user => _user;
   FirebaseAuth get auth => _auth;
   Status get status => _status;
 
@@ -23,8 +23,8 @@ class AuthService with ChangeNotifier {
       notifyListeners();
       await _auth.signInAnonymously().then((UserCredential userCredential) {
         _user = userCredential.user;
-        FirebaseFirestore.instance.collection('users').doc(_user.uid).set({
-          'uid': _user.uid,
+        FirebaseFirestore.instance.collection('users').doc(_user?.uid).set({
+          'uid': _user?.uid,
           'createdAt': Timestamp.now(),
         });
       });
@@ -37,7 +37,7 @@ class AuthService with ChangeNotifier {
     }
   }
 
-  Future<void> _authStateChanges(User firebaseUser) async {
+  Future<void> _authStateChanges(User? firebaseUser) async {
     if (firebaseUser == null) {
       _status = Status.unauthenticated;
     } else {

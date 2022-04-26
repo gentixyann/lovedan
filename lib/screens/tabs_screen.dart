@@ -47,8 +47,8 @@ class _TabsScreenState extends State<TabsScreen> {
     final questionService =
         Provider.of<QuestionService>(context, listen: false);
     final commentService = Provider.of<CommentService>(context, listen: false);
-    questionService.uid = authService.user.uid;
-    commentService.uid = authService.user.uid;
+    questionService.uid = authService.user!.uid;
+    commentService.uid = authService.user!.uid;
     return Scaffold(
       body: _pages?[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(

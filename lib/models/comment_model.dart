@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CommentModel {
-  String _docId;
-  String _questionId;
-  String _commentedUserId;
-  String _commentedUserName;
-  String _commentText;
-  Timestamp _createdAt;
+  String? _docId;
+  String? _questionId;
+  String? _commentedUserId;
+  String? _commentedUserName;
+  String? _commentText;
+  Timestamp? _createdAt;
 
   CommentModel(
     this._docId,
@@ -17,12 +17,12 @@ class CommentModel {
     this._createdAt,
   );
 
-  String get docId => _docId;
-  String get questionId => _questionId;
-  String get commentedUserId => _commentedUserId;
-  String get commentedUserName => _commentedUserName;
-  String get commentText => _commentText;
-  Timestamp get createdAt => _createdAt;
+  String? get docId => _docId;
+  String? get questionId => _questionId;
+  String? get commentedUserId => _commentedUserId;
+  String? get commentedUserName => _commentedUserName;
+  String? get commentText => _commentText;
+  Timestamp? get createdAt => _createdAt;
 
   CommentModel.fromMap(map) {
     _docId = map.id;

@@ -22,7 +22,7 @@ class TopScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
-            top: SizeConfig.blockSizeVertical * 5, left: 10, right: 10),
+            top: SizeConfig.blockSizeVertical! * 5, left: 10, right: 10),
         child: StreamBuilder<QuerySnapshot>(
             stream: questionService.allQuestionPath
                 .orderBy('createdAt', descending: true)
@@ -39,7 +39,7 @@ class TopScreen extends StatelessWidget {
                   return CircularProgressIndicator();
                 default:
                   // streamからデータを取得できたので、使いやすい形にかえてあげる
-                  questionService.init(snapshot.data.docs);
+                  questionService.init(snapshot.data!.docs);
                   return QuestionCard();
               }
             }),
