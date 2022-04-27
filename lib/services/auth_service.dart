@@ -23,8 +23,8 @@ class AuthService with ChangeNotifier {
       notifyListeners();
       await _auth.signInAnonymously().then((UserCredential userCredential) {
         _user = userCredential.user;
-        FirebaseFirestore.instance.collection('users').doc(_user?.uid).set({
-          'uid': _user?.uid,
+        FirebaseFirestore.instance.collection('users').doc(_user!.uid).set({
+          'uid': _user!.uid,
           'createdAt': Timestamp.now(),
         });
       });

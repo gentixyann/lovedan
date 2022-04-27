@@ -13,4 +13,27 @@ class AuthMethods {
         await _firestore.collection('users').doc(currentUser.uid).get();
     return model.User.fromSnap(documentSnapshot);
   }
+
+  // Signing Up as Anonymous User
+  Future signInAnonymously() async {
+    String res = "エラーが発生しました。。。もう一度試してください。";
+    try {
+      UserCredential userCredential = await _auth.signInAnonymously();
+      model.User _user = model.User(
+        uid: userCredential.user!.uid,
+        watchingList: [],
+      );
+
+      // adding user in our database
+      await _firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set(_user.toJson());
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+      print(res);
+    }
+    return res;
+  }
 }
