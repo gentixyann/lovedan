@@ -4,8 +4,8 @@ import 'package:lovedan/responsive/mobile_screen_layout.dart';
 import 'package:lovedan/responsive/responsive_layout.dart';
 import 'package:lovedan/responsive/web_screen_layout.dart';
 import 'package:lovedan/utils/utils.dart';
+import 'package:lovedan/utils/colors.dart';
 import 'package:provider/provider.dart';
-import '../../services/auth_service.dart';
 
 class IntroductionScreen extends StatefulWidget {
   @override
@@ -53,9 +53,24 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          child: const Text('はじめる'),
-          onPressed: signInAnonymously,
+        child: InkWell(
+          child: Container(
+            child: !_isLoading
+                ? const Text('はじめる')
+                : const CircularProgressIndicator(color: primaryColor),
+            width: double.infinity,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            decoration: const ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(4),
+                ),
+              ),
+              color: blueColor,
+            ),
+          ),
+          onTap: signInAnonymously,
         ),
       ),
     );

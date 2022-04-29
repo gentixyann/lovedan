@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lovedan/config/config.dart';
 import 'package:lovedan/providers/user_provider.dart';
 import 'package:lovedan/responsive/mobile_screen_layout.dart';
