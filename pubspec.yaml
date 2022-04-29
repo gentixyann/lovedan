@@ -72,14 +72,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Yomogi-Regular
+    - family: NotoSansJP-Regular
       fonts:
-        - asset: assets/fonts/Yomogi-Regular.ttf
-          weight: 700
-    - family: KiwiMaru-Regular
-      fonts:
-        - asset: assets/fonts/KiwiMaru-Regular.ttf
-        - asset: assets/fonts/KiwiMaru-Light.ttf
+        - asset: assets/fonts/NotoSansJP-Regular.otf
+        - asset: assets/fonts/NotoSansJP-Medium.otf
           weight: 700
   #
   # For details regarding fonts from package dependencies,
