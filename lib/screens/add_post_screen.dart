@@ -11,7 +11,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('add post screen'),
+      child: Text(
+        'add post screen',
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
     );
   }
 }

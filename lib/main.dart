@@ -46,8 +46,9 @@ class MyApp extends StatelessWidget {
           title: 'LoveDan',
           theme: ThemeData.light().copyWith(
               scaffoldBackgroundColor: mobileBackgroundColor,
-              textTheme: TextTheme(
+              textTheme: const TextTheme(
                   bodyText1: TextStyle(
+                color: regularTextColor,
                 fontFamily: 'NotoSansJP-Regular',
               ))),
           home: StreamBuilder(

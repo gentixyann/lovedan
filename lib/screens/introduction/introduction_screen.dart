@@ -53,24 +53,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: InkWell(
-          child: Container(
-            child: !_isLoading
-                ? const Text('はじめる')
-                : const CircularProgressIndicator(color: primaryColor),
-            width: double.infinity,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            decoration: const ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(4),
-                ),
-              ),
-              color: blueColor,
-            ),
-          ),
-          onTap: signInAnonymously,
+        child: ElevatedButton(
+          child: !_isLoading
+              ? const Text('はじめる')
+              : const CircularProgressIndicator(color: primaryColor),
+          onPressed: signInAnonymously,
         ),
       ),
     );
