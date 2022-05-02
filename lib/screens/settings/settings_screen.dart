@@ -8,6 +8,10 @@ class SettingsScreen extends StatelessWidget {
     await AuthMethods().signOut();
   }
 
+  getData() async {
+    try {} catch (err) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

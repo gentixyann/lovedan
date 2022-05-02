@@ -20,6 +20,7 @@ class AddPostScreen extends StatelessWidget {
               IconButton(
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => PostScreen(),
+                        fullscreenDialog: true,
                       )),
                   icon: const Icon(Icons.question_answer))
             ],

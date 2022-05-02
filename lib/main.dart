@@ -47,10 +47,15 @@ class MyApp extends StatelessWidget {
           theme: ThemeData.light().copyWith(
               scaffoldBackgroundColor: mobileBackgroundColor,
               textTheme: const TextTheme(
-                  bodyText1: TextStyle(
-                color: regularTextColor,
-                fontFamily: 'NotoSansJP-Regular',
-              ))),
+                bodyText1: TextStyle(
+                  color: regularTextColor,
+                  fontFamily: 'NotoSansJP-Regular',
+                ),
+                headline6: TextStyle(
+                  color: regularTextColor,
+                  fontFamily: 'NotoSansJP-Regular',
+                ),
+              )),
           home: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {

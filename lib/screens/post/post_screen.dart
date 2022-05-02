@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lovedan/config/size_config.dart';
+import 'package:lovedan/resources/firestore_methods.dart';
+import 'package:lovedan/utils/colors.dart';
 import 'package:lovedan/utils/utils.dart';
 
 class PostScreen extends StatefulWidget {
@@ -9,15 +12,29 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
+  final _form = GlobalKey<FormState>();
   bool isLoading = false;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
-  void postTheme(String uid, String title, String description) async {
+  void postTheme(String uid) async {
     setState(() {
       isLoading = true;
     });
-    try {} catch (err) {
+    try {
+      String res = await FireStoreMethods()
+          .postTheme(_titleController.text, _descriptionController.text, uid);
+      if (res == "success") {
+        // end the loading
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(
+          context,
+          'Posted!',
+        );
+      }
+    } catch (err) {
       setState(() {
         isLoading = false;
       });
@@ -35,8 +52,43 @@ class _PostScreenState extends State<PostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('post screen'),
+    SizeConfig().init(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '投稿',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        backgroundColor: primaryColor,
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: SizeConfig.blockSizeVertical! * 5,
+          horizontal: SizeConfig.blockSizeHorizontal! * 5,
+        ),
+        child: Form(
+          key: _form,
+          child: Column(
+            children: <Widget>[
+              Text(
+                'タイトル',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextFormField(
+                controller: _titleController,
+                style: Theme.of(context).textTheme.headline6,
+                textInputAction: TextInputAction.newline,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(
+                  hintText: '投稿のタイトルを入力してね',
+                  hintStyle: TextStyle(color: grayColor),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
