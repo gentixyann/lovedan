@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lovedan/config/size_config.dart';
+import 'package:lovedan/providers/user_provider.dart';
 import 'package:lovedan/resources/firestore_methods.dart';
 import 'package:lovedan/utils/colors.dart';
 import 'package:lovedan/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class PostScreen extends StatefulWidget {
   PostScreen({Key? key}) : super(key: key);
@@ -13,13 +15,13 @@ class PostScreen extends StatefulWidget {
 
 class _PostScreenState extends State<PostScreen> {
   final _form = GlobalKey<FormState>();
-  bool isLoading = false;
+  bool _isLoading = false;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
   void postTheme(String uid) async {
     setState(() {
-      isLoading = true;
+      _isLoading = true;
     });
     try {
       String res = await FireStoreMethods()
@@ -27,16 +29,16 @@ class _PostScreenState extends State<PostScreen> {
       if (res == "success") {
         // end the loading
         setState(() {
-          isLoading = false;
+          _isLoading = false;
         });
         showSnackBar(
           context,
-          'Posted!',
+          '投稿完了！',
         );
       }
     } catch (err) {
       setState(() {
-        isLoading = false;
+        _isLoading = false;
       });
       showSnackBar(
         context,
@@ -52,6 +54,7 @@ class _PostScreenState extends State<PostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
@@ -61,31 +64,69 @@ class _PostScreenState extends State<PostScreen> {
         ),
         backgroundColor: primaryColor,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: SizeConfig.blockSizeVertical! * 5,
-          horizontal: SizeConfig.blockSizeHorizontal! * 5,
-        ),
-        child: Form(
-          key: _form,
-          child: Column(
-            children: <Widget>[
-              Text(
-                'タイトル',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              TextFormField(
-                controller: _titleController,
-                style: Theme.of(context).textTheme.headline6,
-                textInputAction: TextInputAction.newline,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: InputDecoration(
-                  hintText: '投稿のタイトルを入力してね',
-                  hintStyle: TextStyle(color: grayColor),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: SizeConfig.blockSizeVertical! * 5,
+            horizontal: SizeConfig.blockSizeHorizontal! * 5,
+          ),
+          child: Form(
+            key: _form,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'タイトル',
+                  style: Theme.of(context).textTheme.headline6,
                 ),
-              ),
-            ],
+                TextFormField(
+                  controller: _titleController,
+                  style: Theme.of(context).textTheme.headline6,
+                  textInputAction: TextInputAction.newline,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    hintText: '投稿のタイトルを入力してね',
+                    hintStyle: TextStyle(color: grayColor),
+                  ),
+                ),
+                SizedBox(
+                  height: 10 * SizeConfig.blockSizeVertical!,
+                ),
+                Text(
+                  '内容',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                TextFormField(
+                  controller: _descriptionController,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textInputAction: TextInputAction.newline,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    hintText: '相談したいことや聞きたいことを入力してね',
+                    hintStyle: TextStyle(color: grayColor),
+                  ),
+                ),
+                SizedBox(
+                  height: 10 * SizeConfig.blockSizeVertical!,
+                ),
+                TextButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: !_isLoading
+                        ? const Text('投稿')
+                        : const CircularProgressIndicator(color: primaryColor),
+                  ),
+                  onPressed: () =>
+                      _isLoading ? null : postTheme(userProvider.getUser.uid),
+                  style: TextButton.styleFrom(
+                    backgroundColor: secondaryColor,
+                    shape: const StadiumBorder(),
+                    minimumSize: Size(60 * SizeConfig.blockSizeHorizontal!, 50),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
