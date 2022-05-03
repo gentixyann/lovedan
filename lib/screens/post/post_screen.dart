@@ -20,30 +20,35 @@ class _PostScreenState extends State<PostScreen> {
   final TextEditingController _descriptionController = TextEditingController();
 
   void postTheme(String uid) async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      String res = await FireStoreMethods()
-          .postTheme(_titleController.text, _descriptionController.text, uid);
-      if (res == "success") {
-        // end the loading
+    if (this._form.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        String res = await FireStoreMethods()
+            .postTheme(_titleController.text, _descriptionController.text, uid);
+        if (res == "success") {
+          // end the loading
+          setState(() {
+            _isLoading = false;
+            _titleController.text = '';
+            _descriptionController.text = '';
+          });
+          showSnackBar(
+            context,
+            '投稿完了！',
+          );
+          Navigator.pop(context);
+        }
+      } catch (err) {
         setState(() {
           _isLoading = false;
         });
         showSnackBar(
           context,
-          '投稿完了！',
+          err.toString(),
         );
       }
-    } catch (err) {
-      setState(() {
-        _isLoading = false;
-      });
-      showSnackBar(
-        context,
-        err.toString(),
-      );
     }
   }
 
@@ -88,6 +93,12 @@ class _PostScreenState extends State<PostScreen> {
                     hintText: '投稿のタイトルを入力してね',
                     hintStyle: TextStyle(color: grayColor),
                   ),
+                  validator: (value) {
+                    if (value!.length <= 4) {
+                      return 'せめて４文字以上は入力して・・・🥺';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(
                   height: 10 * SizeConfig.blockSizeVertical!,
