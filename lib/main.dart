@@ -56,21 +56,23 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'NotoSansJP-Regular',
                 ),
               )),
-          home: StreamBuilder(
+          home: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
-                // Checking if the snapshot has any data or not
-                if (snapshot.hasData) {
-                  // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('${snapshot.error}'),
+                  );
+                } else if (snapshot.hasData) {
+                  // User が null でなない、つまりサインイン済みのホーム画面へ
                   return const ResponsiveLayout(
                     mobileScreenLayout: MobileScreenLayout(),
                     webScreenLayout: WebScreenLayout(),
                   );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text('${snapshot.error}'),
-                  );
+                } else {
+                  // User が null である、つまり未サインインのサインイン画面へ
+                  return IntroductionScreen();
                 }
               }
               // means connection to future hasnt been made yet
