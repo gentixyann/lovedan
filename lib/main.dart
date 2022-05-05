@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 import 'package:lovedan/config/config.dart';
 import 'package:lovedan/providers/user_provider.dart';
 import 'package:lovedan/responsive/mobile_screen_layout.dart';
@@ -28,6 +30,7 @@ Future<void> main() async {
     // アプリの場合
     await Firebase.initializeApp();
   }
+  await initializeDateFormatting('ja_JP');
   runApp(MyApp());
 }
 
