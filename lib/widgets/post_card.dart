@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:lovedan/config/size_config.dart';
+import 'package:lovedan/screens/post/post_detail_screen.dart';
 import 'package:lovedan/utils/colors.dart';
 
 class PostCard extends StatefulWidget {
@@ -12,6 +12,16 @@ class PostCard extends StatefulWidget {
   State<PostCard> createState() => _PostCardState();
 }
 
+void _selectedPost(BuildContext ctx, dynamic snap) {
+  Navigator.of(ctx).push(
+    MaterialPageRoute(
+      builder: (ctx) => PostDetailScreen(
+        snap: snap,
+      ),
+    ),
+  );
+}
+
 class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
@@ -19,9 +29,7 @@ class _PostCardState extends State<PostCard> {
     SizeConfig().init(context);
     return InkWell(
       splashColor: secondaryColor,
-      onTap: () {
-        print('on tap');
-      },
+      onTap: () => _selectedPost(context, widget.snap),
       child: SizedBox(
         width: double.infinity,
         height: SizeConfig.blockSizeVertical! * 25,
@@ -35,7 +43,7 @@ class _PostCardState extends State<PostCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: Text(
                   widget.snap['title'].toString(),
                   style: Theme.of(context).textTheme.headline6,

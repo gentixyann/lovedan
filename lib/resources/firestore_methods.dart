@@ -26,6 +26,34 @@ class FireStoreMethods {
     return res;
   }
 
+  // Post comment
+  Future<String> postComment(String postId, String text, String uid) async {
+    String res = "Some error occurred";
+    try {
+      if (text.isNotEmpty) {
+        // if the likes list contains the user uid, we need to remove it
+        String commentId = const Uuid().v1();
+        _firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .set({
+          'uid': uid,
+          'text': text,
+          'commentId': commentId,
+          'datePublished': DateTime.now(),
+        });
+        res = 'success';
+      } else {
+        res = "コメントを入力してね！！";
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   Future<String> likePost(String postId, String uid, List likes) async {
     String res = "Some error occurred";
     try {
