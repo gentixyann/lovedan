@@ -89,6 +89,7 @@ class _PostScreenState extends State<PostScreen> {
                   textInputAction: TextInputAction.newline,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
+                  maxLength: 80,
                   decoration: InputDecoration(
                     hintText: '投稿のタイトルを入力してね',
                     hintStyle: TextStyle(color: grayColor),

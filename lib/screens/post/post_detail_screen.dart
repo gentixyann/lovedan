@@ -57,6 +57,20 @@ class PostDetailScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText1,
                 )
               ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20,
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.comment,
+                  size: 30,
+                ),
+                onPressed: () {
+                  print('tap');
+                },
+              ),
             )
           ],
         ),

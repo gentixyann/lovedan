@@ -32,7 +32,7 @@ class _PostCardState extends State<PostCard> {
       onTap: () => _selectedPost(context, widget.snap),
       child: SizedBox(
         width: double.infinity,
-        height: SizeConfig.blockSizeVertical! * 25,
+        height: SizeConfig.blockSizeVertical! * 27,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
@@ -50,9 +50,6 @@ class _PostCardState extends State<PostCard> {
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
