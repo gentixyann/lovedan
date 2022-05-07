@@ -57,7 +57,7 @@ class _PostCardState extends State<PostCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Icon(
+                  const Icon(
                     Icons.access_time,
                     size: 20,
                     color: grayColor,
