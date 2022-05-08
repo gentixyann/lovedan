@@ -6,7 +6,7 @@ import 'package:lovedan/utils/colors.dart';
 
 class PostCard extends StatefulWidget {
   final snap;
-  PostCard({Key? key, required this.snap}) : super(key: key);
+  const PostCard({Key? key, required this.snap}) : super(key: key);
 
   @override
   State<PostCard> createState() => _PostCardState();

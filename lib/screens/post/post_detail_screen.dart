@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lovedan/config/size_config.dart';
 import 'package:lovedan/utils/colors.dart';
+import 'package:lovedan/widgets/comments/comments_modal.dart';
 
 class PostDetailScreen extends StatelessWidget {
   final snap;
@@ -67,9 +68,15 @@ class PostDetailScreen extends StatelessWidget {
                   Icons.comment,
                   size: 30,
                 ),
-                onPressed: () {
-                  print('tap');
-                },
+                onPressed: () => showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => CommentsModal(
+                          postId: snap['postId'].toString(),
+                        )),
               ),
             )
           ],
