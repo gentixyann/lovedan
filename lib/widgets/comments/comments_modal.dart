@@ -28,15 +28,35 @@ class _CommentsModalState extends State<CommentsModal> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'コメント',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Text('閉じるボタン'),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'コメント',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.close,
+                      )),
+                ],
+              ),
+            ),
+            const Divider(
+              height: 20,
+              thickness: 1,
+            ),
+            // コメント入力欄
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                decoration: InputDecoration(hintText: 'コメントを追加'),
+              ),
             )
           ],
         ));
