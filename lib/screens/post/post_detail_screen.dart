@@ -69,14 +69,15 @@ class PostDetailScreen extends StatelessWidget {
                   size: 30,
                 ),
                 onPressed: () => showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20))),
-                    context: context,
-                    builder: (context) => CommentsModal(
-                          postId: snap['postId'].toString(),
-                        )),
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20))),
+                  context: context,
+                  builder: (context) => CommentsModal(
+                    postId: snap['postId'].toString(),
+                  ),
+                ),
               ),
             )
           ],
