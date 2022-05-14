@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lovedan/config/size_config.dart';
+import 'package:lovedan/models/user.dart';
+import 'package:lovedan/providers/user_provider.dart';
+import 'package:lovedan/resources/firestore_methods.dart';
 import 'package:lovedan/utils/colors.dart';
+import 'package:lovedan/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class CommentsModal extends StatefulWidget {
   final postId;
@@ -12,15 +17,33 @@ class CommentsModal extends StatefulWidget {
 
 class _CommentsModalState extends State<CommentsModal> {
   final TextEditingController _commentController = TextEditingController();
-  final _focusNode = FocusNode();
   var _enteredComment = '';
+
+  void postComment(String uid) async {
+    try {
+      String res = await FireStoreMethods()
+          .postComment(widget.postId, _commentController.text, uid);
+      if (res != 'success') {
+        showSnackBar(context, res);
+      }
+      setState(() {
+        _commentController.text = "";
+      });
+    } catch (err) {
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final User user = Provider.of<UserProvider>(context).getUser;
     SizeConfig().init(context);
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      // onTap: () => print('tappu'),
       behavior: HitTestBehavior.opaque,
       child: Container(
           height: SizeConfig.blockSizeVertical! * 80,
@@ -60,7 +83,6 @@ class _CommentsModalState extends State<CommentsModal> {
                 thickness: 1,
               ),
               // コメント入力欄
-
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -88,9 +110,7 @@ class _CommentsModalState extends State<CommentsModal> {
                       IconButton(
                           onPressed: _enteredComment.trim().isEmpty
                               ? null
-                              : () {
-                                  print('submit');
-                                },
+                              : () => postComment(user.uid),
                           icon: Icon(Icons.send))
                     ],
                   ))
