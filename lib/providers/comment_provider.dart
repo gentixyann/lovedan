@@ -16,6 +16,7 @@ class CommentProvider with ChangeNotifier {
         )
         .get();
 
+    // Firestoreから取得した値をListに格納
     final List<Comment> _comments =
         snapshot.docs.map((DocumentSnapshot document) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
