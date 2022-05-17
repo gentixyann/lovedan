@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:lovedan/config/config.dart';
+import 'package:lovedan/providers/comment_provider.dart';
 import 'package:lovedan/providers/user_provider.dart';
 import 'package:lovedan/responsive/mobile_screen_layout.dart';
 import 'package:lovedan/responsive/responsive_layout.dart';
@@ -43,7 +44,10 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (_) => UserProvider(),
-          )
+          ),
+          ChangeNotifierProvider(
+            create: (_) => CommentProvider(),
+          ),
         ],
         child: MaterialApp(
           title: 'LoveDan',

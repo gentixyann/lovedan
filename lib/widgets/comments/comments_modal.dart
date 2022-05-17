@@ -1,12 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lovedan/config/size_config.dart';
 import 'package:lovedan/models/user.dart';
+import 'package:lovedan/providers/comment_provider.dart';
 import 'package:lovedan/providers/user_provider.dart';
 import 'package:lovedan/resources/firestore_methods.dart';
 import 'package:lovedan/utils/colors.dart';
 import 'package:lovedan/utils/utils.dart';
 import 'package:lovedan/widgets/comments/comment_card.dart';
+import 'package:lovedan/widgets/common_UI/modal_top.dart';
 import 'package:provider/provider.dart';
 
 class CommentsModal extends StatefulWidget {
@@ -31,6 +32,10 @@ class _CommentsModalState extends State<CommentsModal> {
       setState(() {
         _commentController.text = "";
       });
+      showSnackBar(
+        context,
+        'コメントを追加しました',
+      );
     } catch (err) {
       showSnackBar(
         context,
@@ -52,16 +57,7 @@ class _CommentsModalState extends State<CommentsModal> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                alignment: Alignment.center,
-                width: 50,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: grayColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+              ModalTop(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -86,7 +82,8 @@ class _CommentsModalState extends State<CommentsModal> {
                 thickness: 1,
               ),
               // コメント入力欄
-              Padding(
+              Consumer<CommentProvider>(builder: (context, model, child) {
+                return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: <Widget>[
@@ -114,10 +111,15 @@ class _CommentsModalState extends State<CommentsModal> {
                       IconButton(
                           onPressed: _enteredComment.trim().isEmpty
                               ? null
-                              : () => postComment(user.uid),
+                              : () {
+                                  postComment(user.uid);
+                                  model.fetchComments(widget.postId);
+                                },
                           icon: Icon(Icons.send))
                     ],
-                  )),
+                  ),
+                );
+              }),
               const Divider(
                 height: 20,
                 thickness: 1,
