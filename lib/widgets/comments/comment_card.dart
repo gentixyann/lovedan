@@ -9,8 +9,9 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CommentProvider>.value(
-      value: CommentProvider()..fetchComments(postId),
+    // return ChangeNotifierProvider<CommentProvider>.value(
+    return ChangeNotifierProvider<CommentProvider>(
+      create: (_) => CommentProvider()..fetchComments(postId),
       child: Consumer<CommentProvider>(
         builder: (context, model, child) {
           final List<Comment>? _comments = model.comments;

@@ -29,6 +29,8 @@ class CommentProvider with ChangeNotifier {
 
     this.comments = _comments;
 
+    print('fetchComments発動です！！');
+
     notifyListeners();
   }
 }

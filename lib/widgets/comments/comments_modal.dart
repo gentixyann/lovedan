@@ -32,6 +32,7 @@ class _CommentsModalState extends State<CommentsModal> {
       setState(() {
         _commentController.text = "";
       });
+      Navigator.of(context).pop();
       showSnackBar(
         context,
         'コメントを追加しました',
@@ -113,7 +114,6 @@ class _CommentsModalState extends State<CommentsModal> {
                               ? null
                               : () {
                                   postComment(user.uid);
-                                  model.fetchComments(widget.postId);
                                 },
                           icon: Icon(Icons.send))
                     ],
@@ -127,32 +127,6 @@ class _CommentsModalState extends State<CommentsModal> {
               CommentCard(
                 postId: widget.postId,
               ),
-              // Expanded(
-              //   child: StreamBuilder(
-              //       stream: FirebaseFirestore.instance
-              //           .collection('posts')
-              //           .doc(widget.postId)
-              //           .collection('comments')
-              //           .orderBy(
-              //             'datePublished',
-              //             descending: true,
-              //           )
-              //           .snapshots(),
-              //       builder: (context,
-              //           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-              //               snapshot) {
-              //         if (snapshot.connectionState == ConnectionState.waiting) {
-              //           return const Center(
-              //             child: CircularProgressIndicator(),
-              //           );
-              //         }
-              //         return ListView.builder(
-              //             itemCount: snapshot.data!.docs.length,
-              //             itemBuilder: (ctx, index) => CommentCard(
-              //                   snap: snapshot.data!.docs[index],
-              //                 ));
-              //       }),
-              // ),
             ],
           ),
         ),
