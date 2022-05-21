@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lovedan/config/size_config.dart';
 import 'package:lovedan/models/user.dart';
-import 'package:lovedan/providers/comment_provider.dart';
 import 'package:lovedan/providers/user_provider.dart';
 import 'package:lovedan/resources/firestore_methods.dart';
 import 'package:lovedan/utils/colors.dart';
@@ -112,11 +111,7 @@ class _CommentsModalState extends State<CommentsModal> {
                         onPressed: _enteredComment.trim().isEmpty
                             ? null
                             : () {
-                                // postComment(context, user.uid);
-                                showSnackBar(
-                                  context,
-                                  'コメントを追加しました！',
-                                );
+                                postComment(context, user.uid);
                               },
                         icon: Icon(Icons.send))
                   ],
