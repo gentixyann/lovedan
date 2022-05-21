@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lovedan/models/comment.dart';
 import 'package:lovedan/providers/comment_provider.dart';
+import 'package:lovedan/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class CommentCard extends StatelessWidget {
@@ -9,6 +11,7 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateFormat outputFormat = DateFormat('yyyy/MM/dd');
     // return ChangeNotifierProvider<CommentProvider>.value(
     return ChangeNotifierProvider<CommentProvider>(
       create: (_) => CommentProvider()..fetchComments(postId),
@@ -24,11 +27,25 @@ class CommentCard extends StatelessWidget {
               .map((_comment) => Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 50),
+                        margin: const EdgeInsets.all(15),
                         child: Text(
                           _comment.text,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Icon(
+                            Icons.access_time,
+                            size: 20,
+                            color: grayColor,
+                          ),
+                          Text(
+                            outputFormat.format(_comment.datePublished),
+                            style: Theme.of(context).textTheme.bodyText1,
+                          )
+                        ],
                       ),
                       const Divider(
                         height: 20,

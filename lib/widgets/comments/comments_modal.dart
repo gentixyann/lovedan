@@ -22,24 +22,24 @@ class _CommentsModalState extends State<CommentsModal> {
   final TextEditingController _commentController = TextEditingController();
   var _enteredComment = '';
 
-  void postComment(String uid) async {
+  void postComment(BuildContext ctx, String uid) async {
     try {
       String res = await FireStoreMethods()
           .postComment(widget.postId, _commentController.text, uid);
       if (res != 'success') {
-        showSnackBar(context, res);
+        showSnackBar(ctx, res);
       }
       setState(() {
         _commentController.text = "";
       });
-      Navigator.of(context).pop();
+      Navigator.of(ctx).pop();
       showSnackBar(
-        context,
-        'コメントを追加しました',
+        ctx,
+        'コメントを追加しました！',
       );
     } catch (err) {
       showSnackBar(
-        context,
+        ctx,
         err.toString(),
       );
     }
@@ -83,43 +83,45 @@ class _CommentsModalState extends State<CommentsModal> {
                 thickness: 1,
               ),
               // コメント入力欄
-              Consumer<CommentProvider>(builder: (context, model, child) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: TextField(
-                            controller: _commentController,
-                            decoration: InputDecoration(labelText: 'コメントを追加'),
-                            textInputAction: TextInputAction.newline,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            style: TextStyle(
-                              color: regularTextColor,
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                _enteredComment = value;
-                              });
-                            },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: TextField(
+                          controller: _commentController,
+                          decoration: InputDecoration(labelText: 'コメントを追加'),
+                          textInputAction: TextInputAction.newline,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          style: TextStyle(
+                            color: regularTextColor,
                           ),
+                          onChanged: (value) {
+                            setState(() {
+                              _enteredComment = value;
+                            });
+                          },
                         ),
                       ),
-                      // postした時にcomment_providerのfetchCommentsを呼ぶ
-                      IconButton(
-                          onPressed: _enteredComment.trim().isEmpty
-                              ? null
-                              : () {
-                                  postComment(user.uid);
-                                },
-                          icon: Icon(Icons.send))
-                    ],
-                  ),
-                );
-              }),
+                    ),
+                    // postした時にcomment_providerのfetchCommentsを呼ぶ
+                    IconButton(
+                        onPressed: _enteredComment.trim().isEmpty
+                            ? null
+                            : () {
+                                // postComment(context, user.uid);
+                                showSnackBar(
+                                  context,
+                                  'コメントを追加しました！',
+                                );
+                              },
+                        icon: Icon(Icons.send))
+                  ],
+                ),
+              ),
               const Divider(
                 height: 20,
                 thickness: 1,
