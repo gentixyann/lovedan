@@ -13,7 +13,27 @@ class Background extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height,
-      child: Stack(),
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Image.asset(
+              "assets/img/main_top.png",
+              width: size.width * 0.35,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Image.asset(
+              "assets/img/post_bottom.png",
+              width: size.width * 0.4,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
