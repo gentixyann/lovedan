@@ -16,7 +16,7 @@ class AddPostScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'add post screen',
+                  '投稿する',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 IconButton(

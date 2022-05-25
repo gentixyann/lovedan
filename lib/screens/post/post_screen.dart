@@ -4,6 +4,7 @@ import 'package:lovedan/providers/user_provider.dart';
 import 'package:lovedan/resources/firestore_methods.dart';
 import 'package:lovedan/utils/colors.dart';
 import 'package:lovedan/utils/utils.dart';
+import 'package:lovedan/widgets/common_UI/confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 
 class PostScreen extends StatefulWidget {
@@ -122,6 +123,22 @@ class _PostScreenState extends State<PostScreen> {
                 SizedBox(
                   height: 10 * SizeConfig.blockSizeVertical!,
                 ),
+                // TextButton(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: !_isLoading
+                //         ? const Text('投稿')
+                //         : const CircularProgressIndicator(color: primaryColor),
+                //   ),
+                //   onPressed: () =>
+                //       _isLoading ? null : postTheme(userProvider.getUser.uid),
+                //   style: TextButton.styleFrom(
+                //     backgroundColor: secondaryColor,
+                //     shape: const StadiumBorder(),
+                //     minimumSize: Size(60 * SizeConfig.blockSizeHorizontal!, 50),
+                //   ),
+                // ),
+
                 TextButton(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -129,8 +146,10 @@ class _PostScreenState extends State<PostScreen> {
                         ? const Text('投稿')
                         : const CircularProgressIndicator(color: primaryColor),
                   ),
-                  onPressed: () =>
-                      _isLoading ? null : postTheme(userProvider.getUser.uid),
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => ConfirmationDialog(),
+                  ),
                   style: TextButton.styleFrom(
                     backgroundColor: secondaryColor,
                     shape: const StadiumBorder(),
