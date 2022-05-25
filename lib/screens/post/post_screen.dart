@@ -148,7 +148,11 @@ class _PostScreenState extends State<PostScreen> {
                   ),
                   onPressed: () => showDialog(
                     context: context,
-                    builder: (context) => ConfirmationDialog(),
+                    builder: (context) => ConfirmationDialog(
+                      action: () {
+                        postTheme(userProvider.getUser.uid);
+                      },
+                    ),
                   ),
                   style: TextButton.styleFrom(
                     backgroundColor: secondaryColor,

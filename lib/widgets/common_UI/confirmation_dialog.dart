@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ConfirmationDialog extends StatelessWidget {
-  const ConfirmationDialog({Key? key}) : super(key: key);
+  const ConfirmationDialog({
+    Key? key,
+    required this.action,
+  }) : super(key: key);
+
+  final Function? action;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class ConfirmationDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context, 'OK');
             print('送信だ！！！');
+            action!();
           },
           child: const Text('OK'),
         ),
